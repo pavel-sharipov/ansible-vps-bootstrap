@@ -1,0 +1,19 @@
+---
+- name: Check backend container health
+  command: docker inspect --format='{{"{{"}}.State.Status{{"}}"}}' deviceinventory-app
+  register: backend_status
+  changed_when: false
+
+- name: Show backend container health
+  debug:
+    var: backend_status.stdout
+
+- name: Check backend actuator endpoint
+  uri:
+    url: http://127.0.0.1:8080/actuator/health
+    return_content: yes
+  register: backend_health
+
+- name: Show backend actuator status
+  debug:
+    var: backend_health.status
