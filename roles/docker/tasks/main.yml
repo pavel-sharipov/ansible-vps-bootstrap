@@ -1,0 +1,9 @@
+---
+- name: Check docker containers
+  command: docker ps
+  register: docker_status
+  changed_when: false
+
+- name: Show docker containers
+  debug:
+    var: docker_status.stdout_lines
