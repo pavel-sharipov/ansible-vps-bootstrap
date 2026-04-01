@@ -1,0 +1,18 @@
+---
+- name: Check fail2ban service status
+  command: systemctl is-active fail2ban
+  register: fail2ban_status
+  changed_when: false
+
+- name: Show fail2ban status
+  debug:
+    var: fail2ban_status.stdout
+
+- name: Check fail2ban sshd jail
+  command: fail2ban-client status sshd
+  register: fail2ban_sshd
+  changed_when: false
+
+- name: Show fail2ban sshd jail
+  debug:
+    var: fail2ban_sshd.stdout_lines
