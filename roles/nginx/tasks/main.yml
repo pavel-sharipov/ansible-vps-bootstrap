@@ -1,0 +1,19 @@
+---
+- name: Check nginx service status
+  command: systemctl is-active nginx
+  register: nginx_status
+  changed_when: false
+
+- name: Show nginx status
+  debug:
+    var: nginx_status.stdout
+
+- name: Check HTTPS endpoint
+  uri:
+    url: https://api.psharipov.de/actuator/health
+    return_content: yes
+  register: api_health
+
+- name: Show API health status
+  debug:
+    var: api_health.status
