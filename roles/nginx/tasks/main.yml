@@ -17,3 +17,13 @@
 - name: Show API health status
   debug:
     var: api_health.status
+
+- name: Backup nginx config
+  copy:
+    src: /etc/nginx/sites-available/api.psharipov.de
+    dest: /etc/nginx/sites-available/api.psharipov.de.bak
+    remote_src: yes
+
+- name: Validate nginx config
+  command: nginx -t
+  changed_when: false
