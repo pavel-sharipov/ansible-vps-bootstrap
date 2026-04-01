@@ -1,0 +1,20 @@
+---
+- name: Check Prometheus health endpoint
+  uri:
+    url: http://127.0.0.1:9090/-/healthy
+    return_content: yes
+  register: prometheus_health
+
+- name: Show Prometheus health
+  debug:
+    var: prometheus_health.status
+
+- name: Check Grafana health endpoint
+  uri:
+    url: http://127.0.0.1:3000/api/health
+    return_content: yes
+  register: grafana_health
+
+- name: Show Grafana health
+  debug:
+    var: grafana_health.status
