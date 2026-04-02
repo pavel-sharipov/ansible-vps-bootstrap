@@ -2,6 +2,7 @@
 - name: Update apt cache
   apt:
     update_cache: yes
+    cache_valid_time: 3600
 
 - name: Install base packages
   apt:
@@ -10,7 +11,25 @@
       - git
       - ufw
       - fail2ban
+      - vim
+      - htop
+      - unzip
+      - net-tools
     state: present
+
+- name: Allow SSH through UFW
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+
+- name: Set timezone
+  timezone:
+    name: Europe/Berlin
 
 - name: Check UFW status
   command: ufw status
@@ -20,4 +39,6 @@
 - name: Show UFW status
   debug:
     var: ufw_status.stdout_lines
-    
+
+
+
