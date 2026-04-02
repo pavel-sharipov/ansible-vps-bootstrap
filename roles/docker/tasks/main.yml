@@ -1,4 +1,22 @@
 ---
+- name: Install Docker package
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+
+- name: Enable Docker service
+  systemd:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Add user to docker group
+  user:
+    name: pavlo
+    groups: docker
+    append: yes
+
 - name: Check docker containers
   command: docker ps
   register: docker_status
