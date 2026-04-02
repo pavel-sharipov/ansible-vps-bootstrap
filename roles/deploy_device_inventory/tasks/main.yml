@@ -11,7 +11,7 @@
 
 - name: Copy environment file
   copy:
-    src: .env
+    src: .env.example
     dest: /opt/device-inventory-api/.env
 
 - name: Pull latest application image
