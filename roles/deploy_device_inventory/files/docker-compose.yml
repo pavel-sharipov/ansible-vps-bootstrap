@@ -7,6 +7,8 @@ services:
       POSTGRES_DB: deviceinventory
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   app:
     image: damon55223/device-inventory-api:latest
@@ -21,3 +23,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "8080:8080"
+
+volumes:
+  postgres_data:
