@@ -1,0 +1,9 @@
+---
+- hosts: vps
+  become: true
+  roles:
+    - docker
+    - monitoring
+    - nginx
+    - security
+    - deploy_app

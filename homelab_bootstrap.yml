@@ -1,0 +1,5 @@
+---
+- hosts: homevm
+  become: true
+  roles:
+    - common
