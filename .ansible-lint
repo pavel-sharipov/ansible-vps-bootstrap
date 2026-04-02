@@ -1,0 +1,7 @@
+skip_list:
+  - fqcn
+  - var-naming
+  - no-changed-when
+  - command-instead-of-module
+  - risky-file-permissions
+  - name
