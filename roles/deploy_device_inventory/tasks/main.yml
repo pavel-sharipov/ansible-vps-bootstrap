@@ -1,0 +1,32 @@
+---
+- name: Create application directory
+  file:
+    path: /opt/device-inventory-api
+    state: directory
+
+- name: Copy docker-compose file
+  copy:
+    src: docker-compose.yml
+    dest: /opt/device-inventory-api/docker-compose.yml
+
+- name: Copy environment file
+  copy:
+    src: .env
+    dest: /opt/device-inventory-api/.env
+
+- name: Pull latest application image
+  command: docker pull damon55223/device-inventory-api:latest
+
+- name: Start application stack
+  command: docker-compose up -d --remove-orphans
+  args:
+    chdir: /opt/device-inventory-api
+
+- name: Check application health
+  uri:
+    url: http://localhost:8080/actuator/health
+    status_code: 200
+  register: healthcheck
+  retries: 10
+  delay: 5
+  until: healthcheck.status == 200

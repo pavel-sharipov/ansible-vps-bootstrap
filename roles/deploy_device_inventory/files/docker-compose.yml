@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: deviceinventory-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: deviceinventory
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  app:
+    image: damon55223/device-inventory-api:latest
+    container_name: deviceinventory-app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      VIEWER_PASSWORD: ${VIEWER_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "8080:8080"
