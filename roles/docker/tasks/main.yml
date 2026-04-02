@@ -1,11 +1,11 @@
 ---
 - name: Install Docker packages
   apt:
-    name: 
+    name:
       - docker.io
       - docker-compose
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: Enable Docker service
   systemd:
@@ -17,7 +17,7 @@
   user:
     name: pavlo
     groups: docker
-    append: yes
+    append: true
 
 - name: Check docker containers
   command: docker ps

@@ -1,7 +1,7 @@
 ---
 - name: Update apt cache
   apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
 
 - name: Install base packages
@@ -39,6 +39,3 @@
 - name: Show UFW status
   debug:
     var: ufw_status.stdout_lines
-
-
-

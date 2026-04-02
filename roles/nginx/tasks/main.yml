@@ -11,7 +11,7 @@
 - name: Check HTTPS endpoint
   uri:
     url: https://api.psharipov.de/actuator/health
-    return_content: yes
+    return_content: true
   register: api_health
 
 - name: Show API health status
@@ -22,7 +22,7 @@
   copy:
     src: /etc/nginx/sites-available/api.psharipov.de
     dest: /etc/nginx/sites-available/api.psharipov.de.bak
-    remote_src: yes
+    remote_src: true
 
 - name: Validate nginx config
   command: nginx -t
